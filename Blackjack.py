@@ -6,24 +6,31 @@ PICA   = chr(9824) # Character 9824 is '♠'.
 TREBOL    = chr(9827) # Character 9827 is '♣'.
 
 NUM_BARAJAS = 6
-PALOS = [CORAZON,DIAMANTE,PICA,TREBOL] * NUM_BARAJAS * 13
-BARAJAS = [1,2,3,4,5,6,7,8,9,10,'J','Q','K'] * NUM_BARAJAS
+PALOS = [CORAZON,DIAMANTE,PICA,TREBOL] * 13 * NUM_BARAJAS
+VALORES = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'] * 4 * NUM_BARAJAS
 
-random.shuffle(BARAJAS)
-def crear_mazo() -> list:
-    deck = []
-    deck.append(BARAJAS)
-    deck.append(PALOS)
-    random.shuffle(deck)
-    return deck
+def crear_baraja() -> list:
+    baraja = []
+    for i in range(len(VALORES)):
+        baraja.append((VALORES[i], PALOS[i]))
+    random.shuffle(baraja)
+    return baraja
 
-mazo = crear_mazo()
-cartas_jugador = [mazo[0].pop(),mazo[1].pop()]
-cartas_dealer = [mazo[0].pop()]
-print(cartas_jugador)
+def mostrar_cartas(cartas) -> None:
+    for fila in range(4):
+        for columna, carta in enumerate(cartas):
+            valor, palo = carta
+            if fila == 0:
+                print(' ___ ', end=' ')
+            elif fila == 1:
+                print(f'|{valor}  |', end=' ')
+            elif fila == 2:
+                print(f'| {palo} |', end=' ')
+            elif fila == 3:
+                print(f'|__{valor}|', end=' ')
+        print()
 
 
-#baraja = {CORAZON: [(1,'A'),2,3,4,5,6,7,8,9,10,(10,'J'),(10,'Q'),(10,'K')],
-         # DIAMANTE: [1,2,3,4,5,6,7,8,9,10,(10,'J'),(10,'Q'),(10,'K')],
-          #PICA: [1,2,3,4,5,6,7,8,9,10,(10,'J'),(10,'Q'),(10,'K')],
-          #TREBOL: [1,2,3,4,5,6,7,8,9,10,(10,'J'),(10,'Q'),(10,'K')],}
+baraja = crear_baraja()
+cartas_jugador = [baraja.pop(),baraja.pop()]
+mostrar_cartas(cartas_jugador)
