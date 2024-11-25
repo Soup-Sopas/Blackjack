@@ -76,5 +76,6 @@ mostrar_cartas(cartas_jugador)
 mostrar_cartas(cartas_dealer)
 crupier_logica(cartas_dealer)
 mostrar_cartas(cartas_dealer)
+lutdyit
 
 
