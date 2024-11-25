@@ -17,6 +17,10 @@ def crear_baraja() -> list:
     random.shuffle(baraja)
     return baraja
 
+def crupier_logica(cartas):
+    if obtener_valor_cartas(cartas) < 17:
+        cartas_dealer.append(baraja.pop())
+
 def mostrar_cartas(cartas, dealer = False) -> None:
     for fila in range(4):
         ace = 0
@@ -69,5 +73,8 @@ if pedir():
     cartas_jugador.append(baraja.pop())
 
 mostrar_cartas(cartas_jugador)
+mostrar_cartas(cartas_dealer)
+crupier_logica(cartas_dealer)
+mostrar_cartas(cartas_dealer)
 
 
