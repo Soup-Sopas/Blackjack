@@ -76,5 +76,4 @@ if pedir():
 
 mostrar_cartas(cartas_jugador)
 
-sfjssl
 
