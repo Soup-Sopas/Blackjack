@@ -6,16 +6,16 @@ PICA   = chr(9824) # Character 9824 is '♠'.
 TREBOL    = chr(9827) # Character 9827 is '♣'.
 
 NUM_BARAJAS = 6
-PALOS = [CORAZON,DIAMANTE,PICA,TREBOL] * 13 * NUM_BARAJAS
-VALORES = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'] * 4 * NUM_BARAJAS
+PALOS = [CORAZON,DIAMANTE,PICA,TREBOL] * NUM_BARAJAS
+VALORES = [2,3,4,5,6,7,8,9,10,'J','Q','K','A'] * NUM_BARAJAS
 
 def crear_baraja() -> list:
     baraja = []
-    for i in range(len(VALORES)):
-        baraja.append((VALORES[i], PALOS[i]))
+    for palo in PALOS:
+        for valor in VALORES:
+            baraja.append((valor,palo))
     random.shuffle(baraja)
     return baraja
-
 
 def mostrar_cartas(cartas, dealer = False) -> None:
     for fila in range(4):
