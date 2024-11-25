@@ -50,12 +50,6 @@ def obtener_valor_cartas(cartas) -> int:
             valor += carta[0]
     return valor
 
-def escoger_as() -> int:
-    numero_as = ''
-    while not numero_as.isnumeric():
-        numero_as = input("Tienes un As quieres que sea 1 o 11: ")
-    return int(numero_as)
-
 def pedir() -> bool:
     decision = ''
     while decision not in ['H','S']:
