@@ -21,8 +21,9 @@ def mostrar_cartas(cartas, mostrar = False) -> None:
         print()
         if fila == 3 and not mostrar:
             print(f"{obtener_valor_cartas(cartas)}".rjust(len(cartas) * 5 + (len(cartas) - 1),'-'))
-        if fila == 3 and obtener_valor_cartas(cartas) == 21 and len(cartas) == 2:
-            print("Blackjack")
+        if not mostrar:
+            if fila == 3 and obtener_valor_cartas(cartas) == 21 and len(cartas) == 2:
+                print("Blackjack")
     print()
 
 def obtener_valor_cartas(cartas) -> int:
@@ -48,17 +49,20 @@ def pedir() -> bool:
 
 
 
-def turno_jugador(cartas) -> list:
-    print("Jugador 1")
-    if obtener_valor_cartas(cartas)== 21: return cartas
+def turno_jugador(jugador) -> list:
+    cartas, nombre = jugador
+    print(nombre)
+    mostrar_cartas(cartas)
+    if obtener_valor_cartas(cartas) == 21: return jugador
     while True:
         if pedir():
             cartas.append(baraja.pop())
             mostrar_cartas(cartas)
             if obtener_valor_cartas(cartas) >= 21:
-                return cartas
+                print("Te pasate. Perdiste")
+                return [cartas, nombre]
         else:
-                return cartas
+            return [cartas, nombre]
 
 def resultado(cartas) -> str:
     valor = obtener_valor_cartas(cartas)
@@ -73,42 +77,52 @@ def resultado(cartas) -> str:
         return "Empate"
 
 def menu():
-    #print("Bienvenido a Blackjack")
-    #eleccion=int(input("Si desea jugar pulse el 1\n"
-     #                  "Sino desea jugar pulse el 2\n"))
-    #if eleccion ==1:
-        num_jugadores = int(input("¿Cuantos jugadores van a jugar? (Maximo 5):"))
-        jugadores = []
-        ordenadores = []
-        for num in range(num_jugadores):
-            jugadores.append([baraja.pop(),baraja.pop()])
-        for num in range(abs(num_jugadores - 5)):
-            ordenadores.append([baraja.pop(),baraja.pop()])
+    # print("Bienvenido a Blackjack")
+    # eleccion=int(input("Si desea jugar pulse el 1\n"
+    #                  "Sino desea jugar pulse el 2\n"))
+    # if eleccion ==1:
+    num_jugadores = int(input("¿Cuantos jugadores van a jugar? (Maximo 5):"))
+    nombres = []
+    for i in range(num_jugadores):
+        nombres.append(input("¿Cual es tu nombre?: "))
+    jugadores = []
+    ordenadores = []
+    for num in range(num_jugadores):
+        jugadores.append([[baraja.pop(), baraja.pop()], nombres[num]])
+    for num in range(abs(num_jugadores - 5)):
+        ordenadores.append([baraja.pop(), baraja.pop()])
 
-        print("Dealer")
-        mostrar_cartas(cartas_dealer, True)
+    print("Dealer")
+    mostrar_cartas(cartas_dealer, True)
+    time.sleep(0.5)
 
-        for jugador in jugadores:
-            print("Jugador")
-            mostrar_cartas(jugador)
+    participantes = jugadores + ordenadores
+    random.shuffle(participantes)
 
-        for ordenador in ordenadores:
-            print("Ordenador")
-            mostrar_cartas(ordenador)
+    for participante in participantes:
+        if participante in jugadores:
+            print(participante[1])
+            mostrar_cartas(participante[0])
+            time.sleep(0.5)
+        else:
+            print('Ordenador')
+            mostrar_cartas(participante)
+            time.sleep(0.5)
 
-        for i in range(len(jugadores)):
-            jugadores[i] = turno_jugador(jugadores[i])
+    for i in range(len(participantes)):
+        if participantes[i] in jugadores:
+            participantes[i] = turno_jugador(participantes[i])
+        else:
+            participantes[i] = ordenador_logica(participantes[i])
+            time.sleep(0.5)
 
-        for i in range(len(ordenadores)):
-            ordenadores[i] = ordenador_logica(ordenadores[i])
+    crupier_logica()
 
-        crupier_logica()
-
-        todos = jugadores + ordenadores
-        i = 1
-        for jugador in todos:
-            print(i,resultado(jugador))
-            i += 1
+    for participante in participantes:
+        if participante in jugadores:
+            print(participante[1], resultado(participante[0]))
+        else:
+            print("Ordenador", resultado(participante))
     #else:
      #   print("Gracias")
 
