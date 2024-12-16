@@ -4,7 +4,6 @@ from logica import *
 from jugador import *
 
 
-
 def menu():
     # print("Bienvenido a Blackjack")
     # eleccion=int(input("Si desea jugar pulse el 1\n"
