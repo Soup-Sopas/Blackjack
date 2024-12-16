@@ -41,3 +41,15 @@ def ordenador_logica(cartas)-> list:
                 cartas.append(baraja.pop())
             mostrar_cartas(cartas)
             return cartas
+
+def resultado(cartas) -> str:
+    valor = obtener_valor_cartas(cartas)
+    dealer = obtener_valor_cartas(cartas_dealer)
+    if valor > 21 :
+        return f"Perdiste\n {valor}-{dealer}"
+    elif dealer > 21 or valor > dealer:
+        return f"Ganaste\n {valor}-{dealer}"
+    elif valor < dealer:
+        return f"Perdiste\n {valor}-{dealer}"
+    else:
+        return f"Empate\n {valor}-{dealer}"

@@ -3,17 +3,7 @@ from baraja import *
 from logica import *
 from jugador import *
 
-def resultado(cartas) -> str:
-    valor = obtener_valor_cartas(cartas)
-    dealer = obtener_valor_cartas(cartas_dealer)
-    if valor > 21 :
-        return f"Perdiste\n {valor}-{dealer}"
-    elif dealer > 21 or valor > dealer:
-        return f"Ganaste\n {valor}-{dealer}"
-    elif valor < dealer:
-        return f"Perdiste\n {valor}-{dealer}"
-    else:
-        return f"Empate\n {valor}-{dealer}"
+
 
 def menu():
     # print("Bienvenido a Blackjack")
