@@ -35,8 +35,9 @@ def mostrar_cartas(cartas, mostrar = False) -> None:
         print()
         if fila == 3 and not mostrar:
             print(f"{obtener_valor_cartas(cartas)}".rjust(len(cartas) * 5 + (len(cartas) - 1),'-'))
-        if fila == 3 and obtener_valor_cartas(cartas) == 21 and len(cartas) == 2:
-            print("Blackjack")
+        if not mostrar:
+            if fila == 3 and obtener_valor_cartas(cartas) == 21 and len(cartas) == 2:
+                print("Blackjack")
     print()
 
 def obtener_valor_cartas(cartas) -> int:

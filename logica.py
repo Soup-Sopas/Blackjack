@@ -13,10 +13,16 @@ def crupier_logica():
 
 def ordenador_logica(cartas)-> list:
     tipo = random.randint(1,3)
+    valor_dealer = obtener_valor_cartas([cartas_dealer[0], (0, '*')])
     match tipo:
         case 1:
             print("Ordenador 1")
-            while obtener_valor_cartas(cartas) <= 15:
+            while obtener_valor_cartas(cartas) <= 11 or (obtener_valor_cartas(cartas) == 12 and 4 <= valor_dealer >= 6) or (13 <= obtener_valor_cartas(cartas) >= 16 and valor_dealer >= 7):
+                print(obtener_valor_cartas(cartas))
+                if obtener_valor_cartas(cartas) >= 17:
+                    print("Hola")
+                    break
+
                 mostrar_cartas(cartas)
                 cartas.append(baraja.pop())
             mostrar_cartas(cartas)
